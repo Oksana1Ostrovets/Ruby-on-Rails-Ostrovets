@@ -1,0 +1,29 @@
+<h1>Жанри</h1>
+<%= link_to "Додати новий жанр", new_genre_path, class: "btn btn-success mb-3" %>
+
+<% if notice %>
+  <div class="alert alert-success"><%= notice %></div>
+<% end %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Назва</th>
+      <th>Опис</th>
+      <th>Дії</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @genres.each do |genre| %>
+      <tr>
+        <td><%= genre.name %></td>
+        <td><%= genre.description %></td>
+        <td>
+          <%= link_to 'Показати', genre_path(genre), class: "btn btn-primary btn-sm" %>
+          <%= link_to 'Редагувати', edit_genre_path(genre), class: "btn btn-warning btn-sm" %>
+          <%= link_to 'Видалити', genre_path(genre), method: :delete, data: { confirm: "Ви впевнені?" }, class: "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

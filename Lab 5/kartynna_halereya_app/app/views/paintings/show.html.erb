@@ -1,0 +1,8 @@
+<h1><%= @painting.title %></h1>
+<p><strong>Рік:</strong> <%= @painting.year %></p>
+<p><strong>Ціна:</strong> <%= number_to_currency(@painting.price) %></p>
+<p><strong>Автор:</strong> <%= @painting.author.name %></p>
+<p><strong>Жанр:</strong> <%= @painting.genre.name %></p>
+
+<%= link_to "Редагувати", edit_painting_path(@painting), class: "btn btn-warning" %>
+<%= link_to "Назад", paintings_path, class: "btn btn-secondary" %>

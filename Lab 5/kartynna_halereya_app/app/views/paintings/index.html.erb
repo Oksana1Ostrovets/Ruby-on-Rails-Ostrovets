@@ -1,0 +1,31 @@
+<h1>Картини</h1>
+<%= link_to "Додати нову", new_painting_path, class: "btn btn-success mb-3" %>
+
+<% if notice %>
+  <div class="alert alert-success"><%= notice %></div>
+<% end %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Назва</th>
+      <th>Рік</th>
+      <th>Ціна</th>
+      <th>Дії</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @paintings.each do |painting| %>
+      <tr>
+        <td><%= painting.title %></td>
+        <td><%= painting.year %></td>
+        <td><%= number_to_currency(painting.price) %></td>
+        <td>
+          <%= link_to 'Показати', painting_path(painting), class: "btn btn-primary btn-sm" %>
+          <%= link_to 'Редагувати', edit_painting_path(painting), class: "btn btn-warning btn-sm" %>
+          <%= link_to 'Видалити', painting_path(painting), method: :delete, data: { confirm: "Ви впевнені?" }, class: "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

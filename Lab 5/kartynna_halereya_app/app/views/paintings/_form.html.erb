@@ -1,0 +1,38 @@
+<%= form_with(model: painting, local: true) do |form| %>
+  <% if painting.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% painting.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :year %>
+    <%= form.number_field :year, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :price %>
+    <%= form.number_field :price, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :author_id %>
+    <%= form.collection_select :author_id, Author.all, :id, :name, class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :genre_id %>
+    <%= form.collection_select :genre_id, Genre.all, :id, :name, class: "form-select" %>
+  </div>
+
+  <%= form.submit class: "btn btn-primary" %>
+<% end %>
