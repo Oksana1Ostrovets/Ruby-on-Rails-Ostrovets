@@ -1,0 +1,39 @@
+<%= form_with(model: painting, local: true, class: "container") do |form| %>
+  <% if painting.errors.any? %>
+    <div class="alert alert-danger">
+      <h4>Помилки:</h4>
+      <ul>
+        <% painting.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :year, class: "form-label" %>
+    <%= form.number_field :year, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :price, class: "form-label" %>
+    <%= form.number_field :price, step: 0.01, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :author_id, "Автор", class: "form-label" %>
+    <%= form.collection_select :author_id, Author.all, :id, :name, {}, class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :genre_id, "Жанр", class: "form-label" %>
+    <%= form.collection_select :genre_id, Genre.all, :id, :name, {}, class: "form-select" %>
+  </div>
+
+  <%= form.submit class: "btn btn-success" %>
+<% end %>

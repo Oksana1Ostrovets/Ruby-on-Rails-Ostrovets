@@ -1,0 +1,6 @@
+<h1><%= @author.name %></h1>
+<p><strong>Рік народження:</strong> <%= @author.birth_year %></p>
+<p><strong>Країна:</strong> <%= @author.country %></p>
+
+<%= link_to "Редагувати", edit_author_path(@author), class: "btn btn-warning" %>
+<%= link_to "Назад", authors_path, class: "btn btn-secondary" %>

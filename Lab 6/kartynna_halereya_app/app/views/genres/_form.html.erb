@@ -1,0 +1,24 @@
+<%= form_with(model: genre, local: true, class: "container") do |form| %>
+  <% if genre.errors.any? %>
+    <div class="alert alert-danger">
+      <h4>Помилки:</h4>
+      <ul>
+        <% genre.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, class: "form-control" %>
+  </div>
+
+  <%= form.submit class: "btn btn-success" %>
+<% end %>

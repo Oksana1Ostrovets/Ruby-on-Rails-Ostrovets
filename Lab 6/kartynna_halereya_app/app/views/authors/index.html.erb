@@ -1,0 +1,33 @@
+<h1>Автори</h1>
+<%= link_to "Додати нового автора", new_author_path, class: "btn btn-success mb-3" %>
+
+<% if notice %>
+  <div class="alert alert-success"><%= notice %></div>
+<% end %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Ім'я</th>
+      <th>Рік народження</th>
+      <th>Країна</th>
+      <th>Дії</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @authors.each do |author| %>
+      <tr>
+        <td><%= author.name %></td>
+        <td><%= author.birth_year %></td>
+        <td><%= author.country %></td>
+        <td>
+          <%= link_to 'Показати', author_path(author), class: "btn btn-primary btn-sm" %>
+          <%= link_to 'Редагувати', edit_author_path(author), class: "btn btn-warning btn-sm" %>
+          <%= link_to 'Видалити', author_path(author), method: :delete, data: { confirm: "Ви впевнені?" }, class: "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+    <%= link_to "На головну", root_path, class: "btn btn-secondary mb-3" %>
+
+  </tbody>
+</table>
