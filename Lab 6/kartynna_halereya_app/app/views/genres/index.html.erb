@@ -1,15 +1,17 @@
 <h1>Жанри</h1>
 <%= link_to "Додати новий жанр", new_genre_path, class: "btn btn-success mb-3" %>
 
-<% if notice %>
-  <div class="alert alert-success"><%= notice %></div>
-<% end %>
+<%= link_to "Видалити жанри без картин", destroy_empty_genres_genres_path, method: :delete, class: "btn btn-danger mb-3" %>
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Назва</th>
-      <th>Опис</th>
+      <th>
+          Назва 
+      </th>
+      <th>
+          Опис
+      </th>
       <th>Дії</th>
     </tr>
   </thead>
@@ -21,10 +23,17 @@
         <td>
           <%= link_to 'Показати', genre_path(genre), class: "btn btn-primary btn-sm" %>
           <%= link_to 'Редагувати', edit_genre_path(genre), class: "btn btn-warning btn-sm" %>
-          <%= link_to 'Видалити', genre_path(genre), method: :delete, data: { confirm: "Ви впевнені?" }, class: "btn btn-danger btn-sm" %>
+          
+          <% if genre.paintings.exists? %>
+            <%= link_to 'Видалити', genre_path(genre), method: :delete, data: { confirm: "Ви впевнені, що хочете видалити цей жанр? Якщо він має картину, вона також буде видалена." }, class: "btn btn-danger btn-sm" %>
+          <% else %>
+            <%= link_to 'Видалити', genre_path(genre), method: :delete, data: { confirm: "Ви впевнені, що хочете видалити цей жанр?" }, class: "btn btn-danger btn-sm" %>
+          <% end %>
+
         </td>
       </tr>
     <% end %>
-    <%= link_to "На головну", root_path, class: "btn btn-secondary mb-3" %>
   </tbody>
 </table>
+
+<%= link_to "На головну", root_path, class: "btn btn-secondary mb-3" %>

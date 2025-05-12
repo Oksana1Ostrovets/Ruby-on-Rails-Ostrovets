@@ -1,13 +1,5 @@
 <%= form_with(model: author, local: true) do |form| %>
-  <% if author.errors.any? %>
-    <div class="alert alert-danger">
-      <ul>
-        <% author.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+ 
 
   <div class="mb-3">
     <%= form.label :name %>

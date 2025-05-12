@@ -1,0 +1,42 @@
+<h1>Каталог картин</h1>
+
+<%= search_form_for @q, url: catalog_path, method: :get, html: { class: "mb-4" } do |f| %>
+  <div class="row">
+    <div class="col-md-4">
+      <%= f.label :title_cont, "Пошук за назвою" %>
+      <%= f.search_field :title_cont, class: "form-control" %>
+    </div>
+    <div class="col-md-4">
+      <%= f.label :author_name_cont, "Пошук за автором" %>
+      <%= f.search_field :author_name_cont, class: "form-control" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.label :s, "Сортування" %>
+      <%= f.select :s, [["Назва ↑", "title asc"], ["Назва ↓", "title desc"], ["Рік ↑", "year asc"], ["Рік ↓", "year desc"]], {}, class: "form-control" %>
+    </div>
+    <div class="col-md-1 mt-4">
+      <%= f.submit "Знайти", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+
+<div class="row mt-4">
+  <% @paintings.each do |painting| %>
+    <div class="col-md-6 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title"><%= painting.title %></h5>
+          <p>
+            <strong>Автор:</strong> <%= painting.author&.name %><br>
+            <strong>Жанр:</strong> <%= painting.genre&.name %><br>
+            <strong>Рік:</strong> <%= painting.year %><br>
+            <strong>Ціна:</strong> <%= number_to_currency(painting.price, unit: "₴") %>
+          </p>
+          <%= link_to "Переглянути", painting_path(painting), class: "btn btn-outline-primary btn-sm" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= paginate @paintings %>

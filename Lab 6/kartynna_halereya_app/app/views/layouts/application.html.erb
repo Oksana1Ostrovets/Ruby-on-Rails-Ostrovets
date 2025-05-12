@@ -24,9 +24,6 @@
 
   <body>
   <% flash.each do |key, message| %>
-  <div class="alert alert-<%= key == "notice" ? "success" : "danger" %>">
-    <%= message %>
-  </div>
 <% end %>
     <%= yield %>
     <% if flash[:notice] %>

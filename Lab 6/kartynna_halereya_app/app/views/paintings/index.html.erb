@@ -2,12 +2,34 @@
 
 <%= link_to "Додати нову картину", new_painting_path, class: "btn btn-success mb-3" %>
 
+<%= form_with url: paintings_path, method: :get, local: true, class: "mb-3 row g-2" do |form| %>
+  <div class="col">
+    <%= form.label :search, "Пошук по назві", class: "form-label" %>
+    <%= form.text_field :search, class: "form-control", value: params[:search] %>
+  </div>
+  <div class="col align-self-end">
+    <%= form.submit "Пошук", class: "btn btn-outline-primary" %>
+  </div>
+<% end %>
+
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Назва</th>
-      <th>Рік</th>
-      <th>Ціна</th>
+      <th>
+        <%= link_to paintings_path(sort: "title", order: params[:order] == "asc" ? "desc" : "asc") do %>
+          Назва <%= sort_arrow('title') %>
+        <% end %>
+      </th>
+      <th>
+        <%= link_to paintings_path(sort: "year", order: params[:order] == "asc" ? "desc" : "asc") do %>
+          Рік <%= sort_arrow('year') %>
+        <% end %>
+      </th>
+      <th>
+        <%= link_to paintings_path(sort: "price", order: params[:order] == "asc" ? "desc" : "asc") do %>
+          Ціна <%= sort_arrow('price') %>
+        <% end %>
+      </th>
       <th>Автор</th>
       <th>Жанр</th>
       <th>Дії</th>
@@ -28,7 +50,7 @@
         </td>
       </tr>
     <% end %>
-    <%= link_to "На головну", root_path, class: "btn btn-secondary mb-3" %>
-
   </tbody>
 </table>
+
+<%= link_to "На головну", root_path, class: "btn btn-secondary mb-3" %>

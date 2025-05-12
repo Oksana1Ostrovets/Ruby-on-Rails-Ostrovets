@@ -1,15 +1,33 @@
 <h1>Автори</h1>
+
 <%= link_to "Додати нового автора", new_author_path, class: "btn btn-success mb-3" %>
 
-<% if notice %>
-  <div class="alert alert-success"><%= notice %></div>
+<%= form_with url: authors_path, method: :get, local: true, class: "mb-3" do |form| %>
+  <div class="form-row">
+    <div class="col">
+      <%= form.label :country, "Країна" %>
+      <%= form.text_field :country, class: "form-control", value: params[:country] %>
+    </div>
+    <div class="col">
+      <%= form.submit "Фільтрувати", class: "btn btn-primary" %>
+    </div>
+  </div>
 <% end %>
+
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Ім'я</th>
-      <th>Рік народження</th>
+      <th>
+        <%= link_to authors_path(sort: 'name', order: params[:order] == "asc" ? "desc" : "asc") do %>
+          Ім'я <%= sort_arrow('name') %>
+        <% end %>
+      </th>
+      <th>
+        <%= link_to authors_path(sort: 'birth_year', order: params[:order] == "asc" ? "desc" : "asc") do %>
+          Рік народження <%= sort_arrow('birth_year') %>
+        <% end %>
+      </th>
       <th>Країна</th>
       <th>Дії</th>
     </tr>
@@ -23,11 +41,13 @@
         <td>
           <%= link_to 'Показати', author_path(author), class: "btn btn-primary btn-sm" %>
           <%= link_to 'Редагувати', edit_author_path(author), class: "btn btn-warning btn-sm" %>
-          <%= link_to 'Видалити', author_path(author), method: :delete, data: { confirm: "Ви впевнені?" }, class: "btn btn-danger btn-sm" %>
+<%= link_to 'Видалити', author_path(author), method: :delete, 
+  data: { confirm: author.paintings.exists? ? "Ви не можете видалити автора" : "Ви впевнені?" }, 
+  class: "btn btn-danger btn-sm" %>
         </td>
       </tr>
     <% end %>
-    <%= link_to "На головну", root_path, class: "btn btn-secondary mb-3" %>
-
   </tbody>
 </table>
+
+<%= link_to "На головну", root_path, class: "btn btn-secondary mb-3" %>
